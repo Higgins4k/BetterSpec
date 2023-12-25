@@ -1,5 +1,6 @@
 ﻿using GameNetcodeStuff;
 using HarmonyLib;
+using System;
 using UnityEngine;
 
 namespace BetterSpec.Patches
@@ -11,19 +12,22 @@ namespace BetterSpec.Patches
         [HarmonyPrefix]
         static void specClockPatch(HUDManager __instance)
         {
-            if (__instance == null)
+            if (HUDManager.Instance == null)
             {
                 return;
             }
 
             if (GameNetworkManager.Instance.localPlayerController.isPlayerDead)
             {
-                if (__instance.Clock != null)
+                if (HUDManager.Instance.Clock != null)
                 {
                     HUDManager.Instance.HideHUD(false);
                     HUDManager.Instance.SetClockVisible(true);
                     HUDManager.Instance.Clock.targetAlpha = 1f;
-                   
+                    HUDManager.Instance.weightCounter.text = "";
+                    HUDManager.Instance.Inventory.targetAlpha = 0f;
+                    HUDManager.Instance.PlayerInfo.targetAlpha = 0f;
+
 
                 }
                 else
