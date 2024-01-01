@@ -12,8 +12,39 @@ namespace BetterSpec.Patches
         [HarmonyPrefix]
         static void specClockPatch(HUDManager __instance)
         {
+
+            if (!GameNetworkManager.Instance.gameHasStarted)
+            {
+                return;
+            }
+
+            if (__instance == null)
+            {
+                Debug.LogError("HUDManagerPatches: __instance is null!");
+                return;
+            }
+
             if (HUDManager.Instance == null)
             {
+                Debug.LogError("HUDManagerPatches: HUDManager.Instance is null!");
+                return;
+            }
+
+            if (HUDManager.Instance.Clock == null)
+            {
+                Debug.LogError("HUDManagerPatches: Clock in HUDManager is null!");
+                return;
+            }
+
+            if (GameNetworkManager.Instance == null)
+            {
+                Debug.LogError("HUDManagerPatches: GameNetworkManager.Instance is null!");
+                return;
+            }
+
+            if (GameNetworkManager.Instance.localPlayerController == null)
+            {
+                Debug.LogError("HUDManagerPatches: localPlayerController is null!");
                 return;
             }
 

@@ -18,7 +18,7 @@ namespace BetterSpec
 
         private const string modGUID = "zg.BetterSpec";
         private const string modName = "BetterSpec";
-        private const string modVersion = "1.0.6";
+        private const string modVersion = "1.0.7";
         private readonly Harmony harmony = new Harmony(modGUID);
         private static MainBetterSpec instance;
 
@@ -41,6 +41,7 @@ namespace BetterSpec
 
             harmony.PatchAll(typeof(MainBetterSpec));
             harmony.PatchAll(typeof(HUDManagerPatches));
+            harmony.PatchAll(typeof(SpecInfoHud));
         }
 
     }
