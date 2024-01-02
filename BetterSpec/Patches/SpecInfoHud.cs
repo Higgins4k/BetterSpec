@@ -41,28 +41,70 @@ namespace BetterSpec.Patches
         [HarmonyPatch("Update")]
         static void modifyWeightText()
         {
+
+            if (specInfo == null)
+            {
+                return;
+            }
+            if (MainBetterSpec.instance == null)
+            {
+                return;
+            }
+            if (GameNetworkManager.Instance == null)
+            {
+                return;
+            }
             if (!GameNetworkManager.Instance.gameHasStarted)
             {
                 specInfo.alpha = 0f;
                 return;
             }
 
-            if (specInfo == null)
-            {
-                return;
-            }
+            
+
             if (!GameNetworkManager.Instance.localPlayerController.isPlayerDead)
             {
                 SpecInfoHud specInfoInstance = new SpecInfoHud();
                 specInfoInstance.itemsInside();
                 int alive = RoundManager.Instance.numberOfEnemiesInScene;
                 specInfo.alpha = 0f;
-                specInfo.text = "Items Remaining Inside: " + specInfoInstance.num2.ToString() + "\nValue Remaining: $" + specInfoInstance.num4.ToString();
-            }
 
-                if (GameNetworkManager.Instance.localPlayerController.isPlayerDead)
+            }
+            if (GameNetworkManager.Instance.localPlayerController.isPlayerDead)
+            {
+
+                //GET CONFIG STUFF, NEED TO CLEAN THIS UP SOON
+                SpecInfoHud specInfoInstance = new SpecInfoHud();
+                if (MainBetterSpec.instance.seeItemsRemaining.Value)
                 {
-                    specInfo.alpha = 1f;
+                    if (MainBetterSpec.instance.seeValueRemaining.Value)
+                    {
+                        specInfo.text = "Items Remaining Inside: " + specInfoInstance.num2.ToString() + "\nValue Remaining: $" + specInfoInstance.num4.ToString();
+
+                    }
+                    else
+                    {
+                        specInfo.text = "Items Remaining Inside: " + specInfoInstance.num2.ToString();
+                    }
+                }
+                else if (MainBetterSpec.instance.seeValueRemaining.Value)
+                {
+                    specInfo.text = "Value Remaining: $" + specInfoInstance.num4.ToString();
+                }
+                if (!MainBetterSpec.instance.seeValueRemaining.Value && !MainBetterSpec.instance.seeItemsRemaining.Value)
+                {
+                    if (MainBetterSpec.instance.seeConfigNotice.Value)
+                    {
+                        specInfo.text = "Enable More Data in Config\nRemove this Notice in Config";
+                    }
+                    else
+                    {
+                        specInfo.text = "";
+                    }
+                }
+
+                //ENDING CONFIG STUFF
+                specInfo.alpha = 1f;
                 }
         }
 
@@ -82,7 +124,6 @@ namespace BetterSpec.Patches
             specBoxTemp.fontSize = 9f;
             specBoxTemp.enabled = true;
             specBoxTemp.color = Color.green;
-            specBoxTemp.text = "Items Remaining Inside: " + specInfoInstance.num2.ToString() + "\nValue Remaining: $" + specInfoInstance.num4.ToString();
             specBoxTemp.overflowMode = (TextOverflowModes)0;
             specInfo = specBoxTemp;
         }
