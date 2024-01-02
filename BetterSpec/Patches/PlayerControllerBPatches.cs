@@ -55,7 +55,6 @@ namespace BetterSpec.Patches
                     HUDManager.Instance.HideHUD(false);
                     HUDManager.Instance.SetClockVisible(true);
                     HUDManager.Instance.Clock.targetAlpha = 1f;
-                    HUDManager.Instance.weightCounter.text = "";
                     HUDManager.Instance.Inventory.targetAlpha = 0f;
                     HUDManager.Instance.PlayerInfo.targetAlpha = 0f;
 
@@ -66,6 +65,13 @@ namespace BetterSpec.Patches
                     Debug.LogError("Clock in HUDManager is null!");
                 }
             }
+            else
+            {
+                HUDManager.Instance.PlayerInfo.targetAlpha = 1f;
+                HUDManager.Instance.Inventory.targetAlpha = 1f;
+            }
+
+
         }
     }
 }
