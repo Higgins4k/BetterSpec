@@ -18,33 +18,8 @@ namespace BetterSpec.Patches
                 return;
             }
 
-            if (__instance == null)
+            if (CheckNull(__instance))
             {
-                Debug.LogError("HUDManagerPatches: __instance is null!");
-                return;
-            }
-
-            if (HUDManager.Instance == null)
-            {
-                Debug.LogError("HUDManagerPatches: HUDManager.Instance is null!");
-                return;
-            }
-
-            if (HUDManager.Instance.Clock == null)
-            {
-                Debug.LogError("HUDManagerPatches: Clock in HUDManager is null!");
-                return;
-            }
-
-            if (GameNetworkManager.Instance == null)
-            {
-                Debug.LogError("HUDManagerPatches: GameNetworkManager.Instance is null!");
-                return;
-            }
-
-            if (GameNetworkManager.Instance.localPlayerController == null)
-            {
-                Debug.LogError("HUDManagerPatches: localPlayerController is null!");
                 return;
             }
 
@@ -72,6 +47,40 @@ namespace BetterSpec.Patches
             }
 
 
+        }
+
+        static bool CheckNull(HUDManager __instance)
+        {
+            if (__instance == null)
+            {
+                Debug.LogError("HUDManagerPatches: __instance is null!");
+                return true;
+            }
+
+            if (HUDManager.Instance == null)
+            {
+                Debug.LogError("HUDManagerPatches: HUDManager.Instance is null!");
+                return true;
+            }
+
+            if (HUDManager.Instance.Clock == null)
+            {
+                Debug.LogError("HUDManagerPatches: Clock in HUDManager is null!");
+                return true;
+            }
+
+            if (GameNetworkManager.Instance == null)
+            {
+                Debug.LogError("HUDManagerPatches: GameNetworkManager.Instance is null!");
+                return true;
+            }
+
+            if (GameNetworkManager.Instance.localPlayerController == null)
+            {
+                Debug.LogError("HUDManagerPatches: localPlayerController is null!");
+                return true;
+            }
+            return false;
         }
     }
 }
