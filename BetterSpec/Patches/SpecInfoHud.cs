@@ -95,7 +95,7 @@ namespace BetterSpec.Patches
                 {
                     if (MainBetterSpec.instance.seeConfigNotice.Value)
                     {
-                        specInfo.text = "Enable More Data in Config\nRemove this Notice in Config";
+                        specInfo.text = "Enable More Data in Config\nRemove this Notice in Config\nCheckout Better Terminal\nAnd ScalingStartCredits";
                     }
                     else
                     {
